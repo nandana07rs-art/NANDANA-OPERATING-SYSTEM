@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main()
+{
+    char buf[100];
+    int s, d, n;
+
+    s = open("source.txt", O_RDONLY);
+    d = open("dest.txt", O_CREAT | O_WRONLY, 0644);
+
+    n = read(s, buf, sizeof(buf));
+    write(d, buf, n);
+
+    close(s);
+    close(d);
+
+    printf("File copied successfully");
+    return 0;
+}
