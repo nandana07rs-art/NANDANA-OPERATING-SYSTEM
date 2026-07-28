@@ -1,0 +1,29 @@
+#include <stdio.h>
+
+struct Employee
+{
+    int id;
+    char name[20];
+};
+
+int main()
+{
+    FILE *fp;
+    struct Employee e;
+
+    fp = fopen("emp.dat", "wb+");
+
+    printf("Enter Employee ID and Name: ");
+    scanf("%d%s", &e.id, e.name);
+
+    fwrite(&e, sizeof(e), 1, fp);
+
+    rewind(fp);
+    fread(&e, sizeof(e), 1, fp);
+
+    printf("\nEmployee ID: %d\n", e.id);
+    printf("Employee Name: %s\n", e.name);
+
+    fclose(fp);
+    return 0;
+}
