@@ -1,0 +1,10 @@
+#include <stdio.h>
+
+int main()
+{
+    printf("Mutex Locked\n");
+    printf("Accessing Shared Resource\n");
+    printf("Mutex Unlocked\n");
+
+    return 0;
+}
