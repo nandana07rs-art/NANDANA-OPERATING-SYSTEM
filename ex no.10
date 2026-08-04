@@ -1,7 +1,31 @@
 #include <stdio.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
+#include <string.h>
+
+struct msgbuf
+{
+    long mtype;
+    char mtext[100];
+};
 
 int main()
 {
-    printf("Message Queue Communication Successful");
+    struct msgbuf message;
+    int msgid;
+
+    msgid = msgget(1234, 0666 | IPC_CREAT);
+
+    message.mtype = 1;
+    strcpy(message.mtext, "Hello, Message Queue!");
+
+    msgsnd(msgid, &message, sizeof(message.mtext), 0);
+    printf("Message Sent: %s\n", message.mtext);
+
+    msgrcv(msgid, &message, sizeof(message.mtext), 1, 0);
+    printf("Message Received: %s\n", message.mtext);
+
+    msgctl(msgid, IPC_RMID, NULL);
+
     return 0;
 }
