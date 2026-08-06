@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    FILE *fp;
+    char ch;
+
+    /* Create and Write */
+    fp = fopen("student.txt", "w");
+
+    if(fp == NULL)
+    {
+        printf("File cannot be created.\n");
+        return 1;
+    }
+
+    fprintf(fp, "Name : Rahul\n");
+    fprintf(fp, "Roll No : 101\n");
+
+    fclose(fp);
+
+    /* Read */
+    fp = fopen("student.txt", "r");
+
+    if(fp == NULL)
+    {
+        printf("File cannot be opened.\n");
+        return 1;
+    }
+
+    printf("File Contents:\n");
+
+    while((ch = fgetc(fp)) != EOF)
+        putchar(ch);
+
+    fclose(fp);
+
+    return 0;
+}
