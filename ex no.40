@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <sys/stat.h>
+
+int main()
+{
+    struct stat file;
+
+    chmod("sample.txt", 0644);
+
+    if(stat("sample.txt", &file) == 0)
+    {
+        printf("File: sample.txt\n");
+        printf("Permissions: ");
+
+        printf((file.st_mode & S_IRUSR) ? "r" : "-");
+        printf((file.st_mode & S_IWUSR) ? "w" : "-");
+        printf((file.st_mode & S_IXUSR) ? "x" : "-");
+
+        printf((file.st_mode & S_IRGRP) ? "r" : "-");
+        printf((file.st_mode & S_IWGRP) ? "w" : "-");
+        printf((file.st_mode & S_IXGRP) ? "x" : "-");
+
+        printf((file.st_mode & S_IROTH) ? "r" : "-");
+        printf((file.st_mode & S_IWOTH) ? "w" : "-");
+        printf((file.st_mode & S_IXOTH) ? "x" : "-");
+
+        printf("\n");
+        printf("Users: Owner, Group, Others\n");
+    }
+
+    return 0;
+}
